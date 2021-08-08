@@ -1,0 +1,16 @@
+.input-eye{
+  display: flex;
+}
+#password-eye{
+  position: relative;
+  margin-left: -20px;
+  bottom: -10px;
+  cursor: pointer;
+}
+
+#password-confirm-eye{
+  position: relative;
+  margin-left: -20px;
+  bottom: -10px;
+  cursor: pointer;
+}

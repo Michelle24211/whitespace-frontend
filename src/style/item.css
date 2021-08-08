@@ -1,0 +1,42 @@
+.card-container{
+  padding: 60px 60px 10px 60px;
+}
+
+.col-card{
+  padding-bottom: 50px;
+}
+
+.card{
+  margin:auto;
+  background-color: rgb(235, 235, 228);
+}
+
+.text-limit { 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 1.5 rem;
+}
+
+.page-container{
+  position: relative;
+  background: linear-gradient(
+    to bottom right,  
+    #002f4b,#dc4225);
+  display: flex;
+  margin-bottom:auto;
+  min-height: 100vh;
+}
+
+.nav-dropdown{
+  position: sticky;
+  top: 0;
+  transform: translateY(100px);
+  height:100%;
+}
+
+.header-category{
+  font-weight: bold;
+  margin-left: 10px;
+  color:rgb(197, 105, 105);
+}

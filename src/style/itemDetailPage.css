@@ -1,0 +1,22 @@
+.item-container{ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 70px 0px;
+}
+
+.product-image{
+  display: flex;
+  margin:auto;
+  width: 90%
+}
+
+.text-col{
+  padding:0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin:auto;
+}
+

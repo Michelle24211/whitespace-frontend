@@ -1,0 +1,46 @@
+.landing-container{
+  position: relative;
+}
+
+video{
+  position: fixed;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -2;
+  transform: translateY(-30%);
+}
+
+.overlay{
+  position: relative;
+  background-color: black;
+  opacity: 0.7;
+  z-index: -1;
+}
+
+
+.center{
+  display: flex;
+  justify-content: center;
+}
+
+h1{
+  position: fixed;
+  border: 2px solid white;
+  text-align: center;
+  padding: 10px;
+  top: 30%;
+}
+
+.btn-landing{
+  position: fixed;
+  top: 50%;
+}
+
+Link{
+  border: 2px solid white;
+}
+
+.larger-text{
+  font-size: 150%;
+}
+

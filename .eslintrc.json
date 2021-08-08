@@ -1,0 +1,49 @@
+{
+    "plugins": ["prettier", "@typescript-eslint"],
+    "extends": ["airbnb-typescript", "react-app", "prettier"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "settings": {
+      "import/resolver": {
+        "typescript": {
+          "alwaysTryTypes": true
+        }
+      }
+    },
+    "rules": {
+      "prettier/prettier": "error",
+      "react/jsx-props-no-spreading": "off",
+      "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+      "react/state-in-constructor": "off",
+      "no-console": "warn",
+      "object-curly-spacing": ["warn", "always"],
+      "no-unused-vars": "error",
+      "@typescript-eslint/semi": "error",
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/no-explicit-any": "error",
+      "max-len": [
+        "warn",
+        {
+          "code": 80,
+          "ignoreStrings": true,
+          "ignoreTemplateLiterals": true,
+          "ignoreComments": true
+        }
+      ],
+      "react/jsx-key": "error",
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": [
+            "**/*.test.js",
+            "**/*.test.jsx",
+            "**/*.test.ts",
+            "**/*.test.tsx",
+            "src/tests/**/*"
+          ]
+        }
+      ]
+    }
+}
