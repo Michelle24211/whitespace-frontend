@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-const baseApiUrl = 'http://localhost:3000/';
+const baseApiUrl = 'https://whitespace-api.herokuapp.com/';
 
 export const getItemAPI = `${baseApiUrl}api/v1/item/`;
 

@@ -64,46 +64,29 @@ const Cart: React.FC<Props> = (props) => {
   }, []);
 
   const handleDelete = (productId: any) => {
-    const jwtToken = localStorage.getItem('jwtToken');
-    if (jwtToken) {
-      fetch(cartApi, {
-        method: 'DELETE',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ jwtToken, productId }),
-      })
-        .then(() => {
-          const items: any = item.slice();
-          for (let i = 0; i < items.length; i++) {
-            if (items[i]._id === productId) {
-              items.splice(i, 1);
-              break;
-            }
-          }
-          return items;
-        })
-        .then((items) => {
-          setItem(items);
-        })
-        .catch((err) => console.log('API ERROR: ', err));
-    } else {
-      const cart = localStorage.getItem('cart');
-      if (cart) {
-        const items: any = JSON.parse(cart).slice();
+    fetch(cartApi, {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ productId }),
+    })
+      .then(() => {
+        const items: any = item.slice();
         for (let i = 0; i < items.length; i++) {
           if (items[i]._id === productId) {
             items.splice(i, 1);
             break;
           }
         }
+        return items;
+      })
+      .then((items) => {
         setItem(items);
-        localStorage.setItem('cart', JSON.stringify(items));
-      } else {
-        setTotalItem(0);
-      }
-    }
+      })
+      .catch((err) => console.log('API ERROR: ', err));
   };
 
   if (loading) {
