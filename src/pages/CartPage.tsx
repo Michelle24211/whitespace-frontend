@@ -33,6 +33,14 @@ const Cart: React.FC<Props> = (props) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ jwtToken }),
+    })
+      .then((res) => res.json())
+      .then((body) => {
+        setIsLoading(false);
+        if (body.data) {
+          setItem(body.data.items);
+          setTotalItem(body.data.items.length);
+        }
       })
         .then((res) => res.json())
         .then((body) => {

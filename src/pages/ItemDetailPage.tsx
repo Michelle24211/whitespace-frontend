@@ -41,6 +41,15 @@ const ItemDetailPage: React.FC<Props> = ({ match }: Props) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ jwtToken, productId: cartItem._id }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          setTotalItem(totalItem + 1);
+        } else {
+          alert('Item already in cart!');
+        }
+
+        return response.json();
       })
         .then((response) => {
           if (response.ok) {
