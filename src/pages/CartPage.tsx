@@ -23,9 +23,14 @@ const Cart: React.FC<Props> = (props) => {
   const { setTotalItem } = useContext(CartContext);
 
   useEffect(() => {
+    const jwtToken = localStorage.getItem('jwtToken');
     fetch(cartApi, {
-      method: 'GET',
-      credentials: 'include',
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ jwtToken }),
     })
       .then((res) => res.json())
       .then((body) => {
@@ -39,14 +44,14 @@ const Cart: React.FC<Props> = (props) => {
   }, []);
 
   const handleDelete = (productId: any) => {
+    const jwtToken = localStorage.getItem('jwtToken');
     fetch(cartApi, {
       method: 'DELETE',
-      credentials: 'include',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ productId }),
+      body: JSON.stringify({ jwtToken, productId }),
     })
       .then(() => {
         const items: any = item.slice();
