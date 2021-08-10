@@ -30,8 +30,10 @@ const Cart: React.FC<Props> = (props) => {
       .then((res) => res.json())
       .then((body) => {
         setIsLoading(false);
-        setItem(body.data.items);
-        setTotalItem(body.data.items.length);
+        if (body.data) {
+          setItem(body.data.items);
+          setTotalItem(body.data.items.length);
+        }
       })
       .catch((err) => console.log('API ERROR: ', err));
   }, []);

@@ -16,7 +16,8 @@ import UserContext from '../context/UserContext';
 
 const AuthButton = withRouter(({ history, location }) => {
   const { user, setUser } = useContext(UserContext);
-  console.log(`button${Object.keys(user).length}`);
+
+  console.log(Object.keys(user).length);
   if (Object.keys(user).length === 0) {
     // eslint-disable-next-line no-restricted-globals
     return <RegistrationButton renderAsPage={false} location={location} />;

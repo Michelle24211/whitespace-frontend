@@ -1,6 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-const baseApiUrl =
-  'http://whitespaceexpress-env.eba-gms4wzqe.us-east-2.elasticbeanstalk.com/';
+const baseApiUrl = 'https://whitespace-api.herokuapp.com/';
 
 export const getItemAPI = `${baseApiUrl}api/v1/item/`;
 

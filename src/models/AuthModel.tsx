@@ -40,6 +40,7 @@ const auth = {
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log(`${res.data}gjlsjglsjgsgsg`);
         if (res.status === 'success') {
           return res.data.user;
         }
