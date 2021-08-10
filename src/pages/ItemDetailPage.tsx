@@ -24,15 +24,15 @@ const ItemDetailPage: React.FC<Props> = ({ match }: Props) => {
   }, []);
 
   const addToCart = async (productId: string) => {
-    const jwtToken = localStorage.getItem('jwtToken');
     setLoading(true);
     fetch(cartApi, {
       method: 'POST',
+      credentials: 'include',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ jwtToken, productId }),
+      body: JSON.stringify({ productId }),
     })
       .then((response) => {
         if (response.ok) {
