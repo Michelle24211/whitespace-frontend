@@ -1,23 +1,3 @@
-.card-container{
-  padding: 60px 60px 10px 60px;
-}
-
-.col-card{
-  padding-bottom: 50px;
-}
-
-.card{
-  margin:auto;
-  background-color: rgb(235, 235, 228);
-}
-
-.text-limit { 
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  height: 1.5 rem;
-}
-
 .page-container{
   position: relative;
   background: linear-gradient(
@@ -39,4 +19,32 @@
   font-weight: bold;
   margin-left: 10px;
   color:rgb(197, 105, 105);
+}
+
+
+.card-container{
+  padding: 60px 60px 10px 60px;
+}
+
+.col-card{
+  padding-bottom: 50px;
+}
+
+.card{
+  margin:auto;
+  background-color: rgb(235, 235, 228);
+  transition: 0.5s ease;
+  cursor: pointer;
+}
+
+.text-limit { 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 1.5 rem;
+}
+
+.card-animate:hover{
+  transform: scale(1.15);
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
 }

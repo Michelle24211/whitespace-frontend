@@ -1,7 +1,8 @@
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import baseApiUrl from '../models/ApiModel';
+import '../style/cart.css';
 
 interface Props {
   itemId: string;
@@ -18,28 +19,31 @@ const CartItem: React.FC<Props> = ({
   price,
   handleDelete,
 }: Props) => (
-  <Card style={{ marginTop: '1em', marginBottom: '10em' }}>
-    <div className="row" style={{ height: '10rem' }}>
-      <Link
-        to={`/item-detail/${itemId}`}
-        className="col-3"
-        style={{ height: '100%' }}
-      >
-        <Card.Title>
-          <b>{name}</b>
-        </Card.Title>
-        <img
-          style={{ height: '100%', objectFit: 'contain' }}
-          src={baseApiUrl + picture}
-          alt="Card Item"
-        />
-      </Link>
-      <div className="col my-auto">
-        <span>$</span> {price}
-        <Button onClick={handleDelete}> Delete</Button>
+  <tr className="cart-item-container">
+    <td>
+      <div className="cart-info">
+        <Link to={`/item-detail/${itemId}`}>
+          <img src={baseApiUrl + picture} alt="Card Item" />
+        </Link>
+        <div className="cart-description">
+          <p>{name}</p>
+          <small>${price && price.toFixed(2)}</small>
+          <br />
+          <Button
+            style={{ color: 'red', padding: '0' }}
+            variant="link"
+            size="sm"
+            onClick={handleDelete}
+          >
+            Remove
+          </Button>
+        </div>
       </div>
-    </div>
-  </Card>
+    </td>
+    <td>
+      <small>${price && price.toFixed(2)}</small>
+    </td>
+  </tr>
 );
 
 export default CartItem;

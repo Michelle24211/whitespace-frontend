@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import auth from '../models/AuthModel';
 import RegistrationButton from './AuthModal';
@@ -16,7 +16,7 @@ import UserContext from '../context/UserContext';
 
 const AuthButton = withRouter(({ history, location }) => {
   const { user, setUser } = useContext(UserContext);
-
+  console.log(`button${Object.keys(user).length}`);
   if (Object.keys(user).length === 0) {
     // eslint-disable-next-line no-restricted-globals
     return <RegistrationButton renderAsPage={false} location={location} />;
@@ -33,7 +33,7 @@ const AuthButton = withRouter(({ history, location }) => {
 
   return (
     <div>
-      <NavLink exact to="/profile" style={{ border: 'none' }}>
+      {/* <NavLink exact to="/profile" style={{ border: 'none' }}>
         <Button variant="link">
           <span
             className="iconify"
@@ -44,7 +44,7 @@ const AuthButton = withRouter(({ history, location }) => {
             style={{ color: '#6c757d' }}
           />
         </Button>
-      </NavLink>
+      </NavLink> */}
       <Button variant="outline-secondary" onClick={logout}>
         Logout
       </Button>

@@ -17,14 +17,17 @@ const ItemCard: React.FC<ItemProps> = ({
     pathname: `/item-detail/${_id}`,
   };
   return (
-    <Card style={{ border: 'none', cursor: 'pointer' }} className="card">
+    <Card
+      style={{ border: 'none', cursor: 'pointer' }}
+      className="card card-animate"
+    >
       <Link to={newTo}>
         <Card.Img variant="top" src={baseAPI + image} />
       </Link>
       <Card.Body>
         <Card.Title className="text-limit">{name}</Card.Title>
         <Card.Text className="text-limit">
-          <div>{`$${price}`}</div>
+          <div>{`$${price.toFixed(2)}`}</div>
           <div>{description}</div>
         </Card.Text>
       </Card.Body>

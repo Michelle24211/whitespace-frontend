@@ -19,7 +19,8 @@ const ItemPage: React.FC<Prop> = ({ category }: Prop) => {
 
     fetch(url, { method: 'GET' })
       .then((res) => res.json())
-      .then((result) =>
+      .then((result) => {
+        console.log(result.data.items);
         setData(
           result.data.items.map((item: Item) => (
             <Col key={item._id} className="col-card">
@@ -32,8 +33,8 @@ const ItemPage: React.FC<Prop> = ({ category }: Prop) => {
               />
             </Col>
           )),
-        ),
-      )
+        );
+      })
       .catch(() => console.log('ERROR: Fetching Products'));
   }, []);
 

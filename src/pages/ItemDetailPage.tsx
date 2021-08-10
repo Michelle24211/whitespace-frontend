@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Container, Button, Row, Col, Image } from 'react-bootstrap';
+import CartContext from '../context/CartContext';
 import Item from '../interfaces/ItemInterface';
 import baseApiUrl, { getItemAPI, cartApi } from '../models/ApiModel';
 import '../style/itemDetailPage.css';
@@ -11,6 +12,7 @@ interface Props {
 const ItemDetailPage: React.FC<Props> = ({ match }: Props) => {
   const [data, setData] = useState<Item>();
   const [isLoading, setLoading] = useState(false);
+  const { totalItem, setTotalItem } = useContext(CartContext);
 
   useEffect(() => {
     const url: string = getItemAPI + match.params.productId;
@@ -32,7 +34,15 @@ const ItemDetailPage: React.FC<Props> = ({ match }: Props) => {
       },
       body: JSON.stringify({ productId }),
     })
-      .then((res) => res.json())
+      .then((response) => {
+        if (response.ok) {
+          setTotalItem(totalItem + 1);
+        } else {
+          alert('Item already in cart!');
+        }
+
+        return response.json();
+      })
       .then(() => setLoading(false))
       .catch((err) => console.log(productId));
   };
@@ -50,7 +60,7 @@ const ItemDetailPage: React.FC<Props> = ({ match }: Props) => {
           <Col xs={12} lg="6" className="text-col">
             <h3>{data.name}</h3>
             <p>{data.description}</p>
-            <p>{data.price}</p>
+            <p>${data.price.toFixed(2)}</p>
 
             {!isLoading && (
               <Button onClick={() => addToCart(data._id)}>Add to Cart</Button>

@@ -13,13 +13,13 @@ import RegistrationPage from './pages/auth/RegistrationPage';
 import ProfilePage from './pages/ProfilePage';
 import CreateListingPage from './pages/CreateListingPage';
 
-import './style/whitespaceLogo.css';
-import './style/app.css';
-
 import UserContext from './context/UserContext';
 import auth from './models/AuthModel';
 import CartPage from './pages/CartPage';
 import CartProvider from './context/CartProvider';
+
+import './style/whitespaceLogo.css';
+import './style/app.css';
 
 const App: React.FC = () => {
   const [user, setUser] = useState({});

@@ -4,11 +4,13 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useContext } from 'react';
+
 import CartContext from '../context/CartContext';
 import Loading from '../components/Loading';
 import CartItem from '../components/CartItem';
 import CartSummary from '../components/CartSummary';
 import { cartApi } from '../models/ApiModel';
+import '../style/cart.css';
 
 interface Props {
   items: [];
@@ -63,8 +65,13 @@ const Cart: React.FC<Props> = (props) => {
   if (loading) {
     return <Loading />;
   }
+
+  let items;
+  let totalPrice;
+  let totalItems;
   if (item.length > 0) {
-    const items = item.map((itemDetails: any, ii) => {
+    // Grab items
+    items = item.map((itemDetails: any, ii) => {
       const { _id, price, name, image } = itemDetails;
       return (
         <CartItem
@@ -77,21 +84,30 @@ const Cart: React.FC<Props> = (props) => {
         />
       );
     });
-    const totalPrice = item
+    // Cart Summary
+    totalPrice = item
       .map((itemDetails: any) => itemDetails.price)
       .reduce((accumulator, currentValue) => accumulator + currentValue);
-    const totalItems = item.length;
+    totalItems = item.length;
     setTotalItem(item.length);
-    return (
-      <div className="row container-fluid text-center">
-        <div className="col-10">{items}</div>
-        <div className="col">
+  }
+  return (
+    <div className="cart-container">
+      <table>
+        <tr>
+          <th>Product</th>
+          <th>Subtotal</th>
+        </tr>
+        {items}
+        {!items && <div>Cart Empty</div>}
+      </table>
+      {items && (
+        <div className="cart-summary">
           <CartSummary totalPrice={totalPrice} totalItems={totalItems} />
         </div>
-      </div>
-    );
-  }
-  return <div>Empty</div>;
+      )}
+    </div>
+  );
 };
 
 export default Cart;

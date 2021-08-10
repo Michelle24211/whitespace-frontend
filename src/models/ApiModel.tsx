@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
-const baseApiUrl = 'http://localhost:3000/';
+const baseApiUrl =
+  'http://whitespaceexpress-env.eba-gms4wzqe.us-east-2.elasticbeanstalk.com/';
 
 export const getItemAPI = `${baseApiUrl}api/v1/item/`;
 

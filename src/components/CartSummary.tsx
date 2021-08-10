@@ -2,26 +2,28 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
-import Card from 'react-bootstrap/Card';
+import '../style/cart.css';
 
 function CartSummary(props: any) {
   return (
-    <Card style={{ marginTop: '1em', marginBottom: '1em' }}>
-      <Card.Body className="center">
-        <Card.Title className="bold">Cart Summary</Card.Title>
-        <Card.Text>
-          Subtotal ({props.totalItems} item{props.totalItems === 1 ? '' : 's'}):
-          ${props.totalPrice}
-        </Card.Text>
-        {/* <button
-          type="button"
-          className="btn btn-primary btn btn-primary"
-          style={{ backgroundColor: '#F93800' }}
-        >
-          Go to checkout
-        </button> */}
-      </Card.Body>
-    </Card>
+    <table>
+      <tr>
+        <td>Items</td>
+        <td>{props.totalItems}</td>
+      </tr>
+      <tr>
+        <td>Subtotal</td>
+        <td>${props.totalPrice && props.totalPrice.toFixed(2)}</td>
+      </tr>
+      <tr>
+        <td>Tax</td>
+        <td>${(props.totalPrice * 0.075).toFixed(2)}</td>
+      </tr>
+      <tr>
+        <td className="cart-total">Total</td>
+        <td>${(props.totalPrice + props.totalPrice * 0.075).toFixed(2)}</td>
+      </tr>
+    </table>
   );
 }
 
