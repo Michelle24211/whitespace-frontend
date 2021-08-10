@@ -10,9 +10,14 @@ const CartButton: React.FC = () => {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
+    const jwtToken = localStorage.getItem('jwtToken');
     fetch(cartApi, {
-      method: 'GET',
-      credentials: 'include',
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ jwtToken }),
     })
       .then((response) => {
         if (!response.ok) {
