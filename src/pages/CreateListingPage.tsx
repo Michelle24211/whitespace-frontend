@@ -18,7 +18,6 @@ class CreateListingPage extends React.Component {
     console.log(this.state);
     fetch('/api/items/', {
       method: 'POST',
-      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
