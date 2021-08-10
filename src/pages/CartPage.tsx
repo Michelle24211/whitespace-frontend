@@ -23,19 +23,36 @@ const Cart: React.FC<Props> = (props) => {
   const { setTotalItem } = useContext(CartContext);
 
   useEffect(() => {
-    fetch(cartApi, {
-      method: 'GET',
-      credentials: 'include',
-    })
-      .then((res) => res.json())
-      .then((body) => {
-        setIsLoading(false);
-        if (body.data) {
-          setItem(body.data.items);
-          setTotalItem(body.data.items.length);
-        }
+    const jwtToken = localStorage.getItem('jwtToken');
+    setIsLoading(true);
+    if (jwtToken) {
+      fetch(cartApi, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ jwtToken }),
       })
-      .catch((err) => console.log('API ERROR: ', err));
+        .then((res) => res.json())
+        .then((body) => {
+          setIsLoading(false);
+          if (body.data) {
+            setItem(body.data.items);
+            setTotalItem(body.data.items.length);
+          }
+        })
+        .catch((err) => console.log('API ERROR: ', err));
+    } else {
+      const cart = localStorage.getItem('cart');
+      if (cart) {
+        setItem(JSON.parse(cart));
+        setTotalItem(JSON.parse(cart).length);
+      } else {
+        setTotalItem(0);
+      }
+      setIsLoading(false);
+    }
   }, []);
 
   const handleDelete = (productId: any) => {
