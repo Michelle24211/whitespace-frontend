@@ -24,9 +24,12 @@ const AuthButton = withRouter(({ history, location }) => {
   }
 
   const logout = async () => {
-    auth.logout();
-    setUser({});
-    history.push('/');
+    await auth.logout().then((res) => {
+      if (res.status === 'success') {
+        setUser({});
+        history.push('/');
+      }
+    });
   };
 
   return (
