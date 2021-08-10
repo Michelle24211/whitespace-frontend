@@ -34,10 +34,7 @@ const CartButton: React.FC = () => {
         .catch((err) => console.log('API ERROR: ', err));
     } else {
       const cart = localStorage.getItem('cart');
-      if (Array.isArray(cart)) {
-        console.log(localStorage.getItem('cart'));
-        setTotalItem(JSON.parse(cart).length);
-      }
+      if (cart) setTotalItem(JSON.parse(cart).length);
     }
   }, [user, setTotalItem]);
 
