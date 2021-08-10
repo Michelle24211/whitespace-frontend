@@ -11,31 +11,26 @@ const CartButton: React.FC = () => {
 
   useEffect(() => {
     const jwtToken = localStorage.getItem('jwtToken');
-    if (jwtToken) {
-      fetch(cartApi, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ jwtToken }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            setTotalItem(0);
-            throw new Error('Cart not available');
-          }
+    fetch(cartApi, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ jwtToken }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          setTotalItem(0);
+          throw new Error('Cart not available');
+        }
 
-          return response.json();
-        })
-        .then((body) => {
-          setTotalItem(body.data.items.length);
-        })
-        .catch((err) => console.log('API ERROR: ', err));
-    } else {
-      const cart = localStorage.getItem('cart');
-      if (cart) setTotalItem(JSON.parse(cart).length);
-    }
+        return response.json();
+      })
+      .then((body) => {
+        setTotalItem(body.data.items.length);
+      })
+      .catch((err) => console.log('API ERROR: ', err));
   }, [user, setTotalItem]);
 
   return (

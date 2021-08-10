@@ -24,78 +24,49 @@ const Cart: React.FC<Props> = (props) => {
 
   useEffect(() => {
     const jwtToken = localStorage.getItem('jwtToken');
-    setIsLoading(true);
-    if (jwtToken) {
-      fetch(cartApi, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ jwtToken }),
+    fetch(cartApi, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ jwtToken }),
+    })
+      .then((res) => res.json())
+      .then((body) => {
+        setIsLoading(false);
+        if (body.data) {
+          setItem(body.data.items);
+          setTotalItem(body.data.items.length);
+        }
       })
-        .then((res) => res.json())
-        .then((body) => {
-          setIsLoading(false);
-          if (body.data) {
-            setItem(body.data.items);
-            setTotalItem(body.data.items.length);
-          }
-        })
-        .catch((err) => console.log('API ERROR: ', err));
-    } else {
-      const cart = localStorage.getItem('cart');
-      if (cart) {
-        setItem(JSON.parse(cart));
-        setTotalItem(JSON.parse(cart).length);
-      } else {
-        setTotalItem(0);
-      }
-      setIsLoading(false);
-    }
+      .catch((err) => console.log('API ERROR: ', err));
   }, []);
 
   const handleDelete = (productId: any) => {
     const jwtToken = localStorage.getItem('jwtToken');
-    if (jwtToken) {
-      fetch(cartApi, {
-        method: 'DELETE',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ jwtToken, productId }),
-      })
-        .then(() => {
-          const items: any = item.slice();
-          for (let i = 0; i < items.length; i++) {
-            if (items[i]._id === productId) {
-              items.splice(i, 1);
-              break;
-            }
-          }
-          return items;
-        })
-        .then((items) => {
-          setItem(items);
-        })
-        .catch((err) => console.log('API ERROR: ', err));
-    } else {
-      const cart = localStorage.getItem('cart');
-      if (cart) {
-        const items: any = JSON.parse(cart).slice();
+    fetch(cartApi, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ jwtToken, productId }),
+    })
+      .then(() => {
+        const items: any = item.slice();
         for (let i = 0; i < items.length; i++) {
           if (items[i]._id === productId) {
             items.splice(i, 1);
             break;
           }
         }
+        return items;
+      })
+      .then((items) => {
         setItem(items);
-        localStorage.setItem('cart', JSON.stringify(items));
-      } else {
-        setTotalItem(0);
-      }
-    }
+      })
+      .catch((err) => console.log('API ERROR: ', err));
   };
 
   if (loading) {
