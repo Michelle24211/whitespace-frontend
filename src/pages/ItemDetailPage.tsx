@@ -26,7 +26,7 @@ const ItemDetailPage: React.FC<Props> = ({ match }: Props) => {
   const addToCart = async (productId: string) => {
     const jwtToken = localStorage.getItem('jwtToken');
     setLoading(true);
-    fetch(cartApi, {
+    fetch(`${cartApi}/add-item-cart`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
