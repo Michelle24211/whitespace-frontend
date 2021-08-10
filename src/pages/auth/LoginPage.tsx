@@ -26,8 +26,6 @@ const Login: React.FC<Props> = (props: Props) => {
     auth
       .authenticate(email, password)
       .then((res) => {
-        console.log(res);
-        localStorage.setItem('jwtToken', res.jwtToken);
         setSuccess((prev) => true);
         setUser(res.data.user);
       })
