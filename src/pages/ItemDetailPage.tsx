@@ -34,22 +34,13 @@ const ItemDetailPage: React.FC<Props> = ({ match }: Props) => {
     const jwtToken = localStorage.getItem('jwtToken');
     setLoading(true);
     if (jwtToken) {
-      fetch(cartApi, {
+      fetch(`${cartApi}/add-item-cart`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ jwtToken, productId: cartItem._id }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          setTotalItem(totalItem + 1);
-        } else {
-          alert('Item already in cart!');
-        }
-
-        return response.json();
       })
         .then((response) => {
           if (response.ok) {
@@ -64,26 +55,28 @@ const ItemDetailPage: React.FC<Props> = ({ match }: Props) => {
         .catch((err) => console.log(cartItem._id));
       setLoading(false);
     } else {
-      let cart = localStorage.getItem('cart');
+      const cart = localStorage.getItem('cart');
       const product = [];
       if (cart) {
         const items: any = JSON.parse(cart).slice();
         for (let i = 0; i < items.length; i++) {
           if (items[i]._id === cartItem._id) {
+            alert('Item already in cart!');
             setLoading(false);
             return;
           }
+          product.push(items[i]);
+          console.log(product);
         }
-        cart = JSON.parse(cart);
-        if (cart && cart[0]) product.push(cart[0]);
         product.push(cartItem);
         setTotalItem(product.length);
         localStorage.setItem('cart', JSON.stringify(product));
+        setLoading(false);
       } else {
         product.push(cartItem);
         localStorage.setItem('cart', JSON.stringify(product));
+        setLoading(false);
       }
-      setLoading(false);
     }
   };
 
