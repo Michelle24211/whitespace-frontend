@@ -33,6 +33,16 @@ const NavBar: React.FC = () => (
           </NavDropdown>
         </Nav>
         <Nav>
+          <Nav.Link href="/profile" style={{ border: 'none' }}>
+            <span
+              className="iconify"
+              data-icon="gg:profile"
+              data-inline="false"
+              data-width="30"
+              data-height="30"
+              style={{ color: '#6c757d' }}
+            />
+          </Nav.Link>
           <Nav>
             <AuthButton />
           </Nav>

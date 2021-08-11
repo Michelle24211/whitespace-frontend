@@ -4,7 +4,8 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useContext } from 'react';
-
+import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import CartContext from '../context/CartContext';
 import Loading from '../components/Loading';
 import CartItem from '../components/CartItem';
@@ -45,10 +46,12 @@ const Cart: React.FC<Props> = (props) => {
         .catch((err) => console.log('API ERROR: ', err));
     } else {
       const cart = localStorage.getItem('cart');
+      console.log(cart);
       if (cart) {
         setItem(JSON.parse(cart));
         setTotalItem(JSON.parse(cart).length);
       } else {
+        setItem([]);
         setTotalItem(0);
       }
       setIsLoading(false);
@@ -92,8 +95,6 @@ const Cart: React.FC<Props> = (props) => {
         }
         setItem(items);
         localStorage.setItem('cart', JSON.stringify(items));
-      } else {
-        setTotalItem(0);
       }
     }
   };
@@ -135,11 +136,21 @@ const Cart: React.FC<Props> = (props) => {
           <th>Subtotal</th>
         </tr>
         {items}
-        {!items && <div>Cart Empty</div>}
       </table>
       {items && (
         <div className="cart-summary">
           <CartSummary totalPrice={totalPrice} totalItems={totalItems} />
+        </div>
+      )}
+      {!items && (
+        <div className="empty-cart-container">
+          <img src="https://www.aytradingco.com/assets/frontend/img/no-cart-product.png" />
+          <p>
+            <b>YOUR SHOPPING BAG IS EMPTY</b>
+          </p>
+          <Link to="/item" className="link-no-style">
+            <Button variant="outline-danger">Start Shopping</Button>
+          </Link>
         </div>
       )}
     </div>

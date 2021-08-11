@@ -31,18 +31,6 @@ const AuthButton = withRouter(({ history, location }) => {
 
   return (
     <div>
-      {/* <NavLink exact to="/profile" style={{ border: 'none' }}>
-        <Button variant="link">
-          <span
-            className="iconify"
-            data-icon="gg:profile"
-            data-inline="false"
-            data-width="30"
-            data-height="30"
-            style={{ color: '#6c757d' }}
-          />
-        </Button>
-      </NavLink> */}
       <Button variant="outline-secondary" onClick={logout}>
         Logout
       </Button>

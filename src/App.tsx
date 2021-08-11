@@ -66,7 +66,7 @@ const App: React.FC = () => {
               component={ItemDetailPage}
             />
             <Route path="/login" component={RegistrationPage} />
-            <Route path="/profile" component={ProfilePage} />
+            <PrivateRoute path="/profile" component={ProfilePage} />
             <Route path="/" component={HomePage} />
           </Switch>
         </Router>

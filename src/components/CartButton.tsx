@@ -34,10 +34,11 @@ const CartButton: React.FC = () => {
         .catch((err) => console.log('API ERROR: ', err));
     } else {
       const cart = localStorage.getItem('cart');
-      if (cart) setTotalItem(JSON.parse(cart).length);
+      if (cart && Object.keys(JSON.parse(cart)).length > 0)
+        setTotalItem(JSON.parse(cart).length);
     }
   }, [user, setTotalItem]);
-
+  console.log(totalItem);
   return (
     <>
       <Link to="/cart">
