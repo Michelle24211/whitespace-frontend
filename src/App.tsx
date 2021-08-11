@@ -28,7 +28,6 @@ const App: React.FC = () => {
       await auth
         .isUserLoggedIn()
         .then((resUser) => {
-          console.log(resUser);
           if (resUser) {
             setUser(resUser);
           }
