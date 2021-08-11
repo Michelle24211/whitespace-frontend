@@ -1,3 +1,5 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useContext } from 'react';
 import { Container, Button, Row, Col, Image } from 'react-bootstrap';
 import CartContext from '../context/CartContext';
@@ -23,7 +25,12 @@ const ItemDetailPage: React.FC<Props> = ({ match }: Props) => {
       .catch((err) => console.log(err));
   }, []);
 
-  const addToCart = async (productId: string) => {
+  const addToCart = async (cartItem: {
+    _id: string;
+    name: string;
+    description: string;
+    price: number;
+  }) => {
     const jwtToken = localStorage.getItem('jwtToken');
     setLoading(true);
     if (jwtToken) {
@@ -90,7 +97,7 @@ const ItemDetailPage: React.FC<Props> = ({ match }: Props) => {
             <p>${data.price.toFixed(2)}</p>
 
             {!isLoading && (
-              <Button onClick={() => addToCart(data._id)}>Add to Cart</Button>
+              <Button onClick={() => addToCart(data)}>Add to Cart</Button>
             )}
             {isLoading && <Button>Processing</Button>}
           </Col>
