@@ -26,26 +26,53 @@ const ItemDetailPage: React.FC<Props> = ({ match }: Props) => {
   const addToCart = async (productId: string) => {
     const jwtToken = localStorage.getItem('jwtToken');
     setLoading(true);
-    fetch(`${cartApi}/add-item-cart`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ jwtToken, productId }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          setTotalItem(totalItem + 1);
-        } else {
-          alert('Item already in cart!');
-        }
-
-        return response.json();
+    if (jwtToken) {
+      fetch(`${cartApi}/add-item-cart`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ jwtToken, productId: cartItem._id }),
       })
-      .then(() => setLoading(false))
-      .catch((err) => console.log(productId));
+        .then((response) => {
+          if (response.ok) {
+            setTotalItem(totalItem + 1);
+          } else {
+            alert('Item already in cart!');
+          }
+
+          return response.json();
+        })
+        .then(() => setLoading(false))
+        .catch((err) => console.log(cartItem._id));
+      setLoading(false);
+    } else {
+      const cart = localStorage.getItem('cart');
+      const product = [];
+      if (cart) {
+        const items: any = JSON.parse(cart).slice();
+        for (let i = 0; i < items.length; i++) {
+          if (items[i]._id === cartItem._id) {
+            alert('Item already in cart!');
+            setLoading(false);
+            return;
+          }
+          product.push(items[i]);
+          console.log(product);
+        }
+        product.push(cartItem);
+        setTotalItem(product.length);
+        localStorage.setItem('cart', JSON.stringify(product));
+        setLoading(false);
+      } else {
+        product.push(cartItem);
+        localStorage.setItem('cart', JSON.stringify(product));
+        setLoading(false);
+      }
+    }
   };
+
   if (data) {
     return (
       <Container key={data._id} className="item-container">
